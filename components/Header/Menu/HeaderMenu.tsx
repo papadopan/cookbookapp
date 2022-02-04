@@ -1,20 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Menu } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-
-
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Menu } from 'antd'
+import {
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 
 const HeaderMenu = (props) => {
-  return <Menu  title="mainmenu" selectable={false} mode="horizontal">
-        <Menu.SubMenu icon={<UserOutlined />} title="User" key="submenu">
-          <Menu.Item>Account</Menu.Item>
-        <Menu.Divider/>
-          <Menu.Item>Logout</Menu.Item>
-        </Menu.SubMenu>
-  </Menu>;
-};
+  return (
+    <Menu title="mainmenu" selectable={false} mode="horizontal">
+      <Menu.SubMenu icon={<UserOutlined />} title="Antonios" key="submenu">
+        <Menu.Item icon={<UserOutlined />}>Account</Menu.Item>
+        <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
+        <Menu.Divider />
+        <Menu.Item icon={<LogoutOutlined />}>Logout</Menu.Item>
+      </Menu.SubMenu>
+    </Menu>
+  )
+}
 
-HeaderMenu.propTypes = {};
+HeaderMenu.propTypes = {}
 
-export default HeaderMenu;
+export default HeaderMenu
