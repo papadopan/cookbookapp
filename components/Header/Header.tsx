@@ -1,26 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Space, Typography } from 'antd';
-import profilePic from "../../public/image.jpeg"
-import Image from 'next/image'
-
+import HeaderMenu from './Menu';
 
 const Header = (props) => {
-  return <Row justify='space-between' style={{verticalAlign:"middle"}}>
+  return <Row justify='space-between' align="middle" >
     <Col>
-    <Space>
-
-    <Image
-        src={profilePic}
-        alt="Cook book logo"
-        height={40}
-        width={40}
-        />
-        <Typography.Title level={5} style={{color:"#fff"}}>CookBook</Typography.Title>
-        </Space>
-      </Col>
+      <Typography.Title level={5} style={{color:"#fff"}}>CookBook</Typography.Title>
+    </Col>
     <Col>antonios</Col>
-    <Col>antonios</Col>
+    <Col span={2}><HeaderMenu/></Col>
   </Row>;
 };
 
