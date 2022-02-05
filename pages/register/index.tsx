@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Col, Form, Input, Radio, Row, Typography } from 'antd'
+import { useMutation } from '@apollo/client'
+import { REGISTER } from './register'
 
 const index = (props) => {
+  const [register, { data, loading, error }] = useMutation(REGISTER)
+
+  console.log(data, loading, error)
+
   return (
     <Row justify="center" align="middle" style={{ padding: '20px 0' }}>
       <Col lg={12} xs={22} style={{ background: '#fff', padding: '15px 10px' }}>
@@ -13,7 +19,7 @@ const index = (props) => {
         <Form
           layout="vertical"
           style={{ marginTop: '20px' }}
-          onFinish={(val) => console.log('---', val)}
+          onFinish={(val) => register({ variables: { options: val } })}
         >
           <Form.Item
             label="First Name"
@@ -24,7 +30,7 @@ const index = (props) => {
           </Form.Item>
           <Form.Item
             label="Last Name"
-            name="last_name"
+            name="lastName"
             rules={[
               { required: true, message: 'Please input your last name!' },
             ]}
@@ -65,7 +71,7 @@ const index = (props) => {
           </Form.Item>
           <Form.Item
             label="Repeat Password"
-            name="repeat_password"
+            name="repeatPassword"
             rules={[
               {
                 required: true,
