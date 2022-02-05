@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Col, Form, Input, Radio, Row, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Typography } from 'antd'
 import { useMutation } from '@apollo/client'
 import { REGISTER } from './register'
 

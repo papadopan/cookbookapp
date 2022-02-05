@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Col, Form, Input, Row, Typography } from 'antd'
+import { LOGIN } from './login'
+import { useMutation } from '@apollo/client'
 
 const Login = (props) => {
+  const [login, { data, loading, error }] = useMutation(LOGIN)
+
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
       <Col span={12} style={{ background: '#fff', padding: '15px 10px' }}>
@@ -10,7 +14,7 @@ const Login = (props) => {
         <Typography.Text type="secondary">Welcome again</Typography.Text>
         <Form
           name="login"
-          onFinish={(val) => console.log('-->>', val)}
+          onFinish={(val) => login({ variables: val })}
           layout="vertical"
         >
           <Form.Item
@@ -45,7 +49,7 @@ const Login = (props) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Submit
             </Button>
           </Form.Item>
