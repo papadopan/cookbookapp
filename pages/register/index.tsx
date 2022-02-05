@@ -61,7 +61,7 @@ const index = (props) => {
               },
             ]}
           >
-            <Input placeholder="*****" type="password" />
+            <Input.Password placeholder="*****" type="password" />
           </Form.Item>
           <Form.Item
             label="Repeat Password"
@@ -79,7 +79,7 @@ const index = (props) => {
               },
             ]}
           >
-            <Input placeholder="*****" type="password" />
+            <Input.Password placeholder="*****" type="password" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
