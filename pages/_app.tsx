@@ -19,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout.Content>
           <Component {...pageProps} />
         </Layout.Content>
-        <Layout.Footer>antonios</Layout.Footer>
+        <Layout.Footer style={{ textAlign: 'center' }}>
+          Cookbook ©2022
+        </Layout.Footer>
       </Layout>
     </ApolloProvider>
   )
