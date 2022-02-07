@@ -6,7 +6,7 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials, req) {
-        return { email: 'antonios.papadopan@gmail.com' }
+        return { email: credentials.email }
       },
     }),
   ],

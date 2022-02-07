@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Col, Form, Input, Row, Typography } from 'antd'
 import { LOGIN } from './login'
 import { useMutation } from '@apollo/client'
-import axios from 'axios'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 const Login = (props) => {
   const [login, { data, loading, error }] = useMutation(LOGIN)
   const router = useRouter()
+
+  const loginWithEmail = async (email: string) => {
+    try {
+      await signIn('credentials', {
+        redirect: false,
+        email,
+      })
+      router.push('/')
+    } catch (e) {}
+  }
+
+  useEffect(() => {
+    if (data && !error) {
+      loginWithEmail(data.login.user.email)
+    }
+  }, [data, error])
 
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
@@ -19,20 +34,24 @@ const Login = (props) => {
         <Form
           name="login"
           style={{ marginTop: '20px' }}
-          // onFinish={(val) => login({ variables: val })}
-          onFinish={async (val) => {
-            try {
-              const response = await signIn('credentials', {
-                redirect: false,
-                ...val,
-              })
-              router.push('/')
-            } catch (e) {
-              console.log('====================================')
-              console.log(e)
-              console.log('====================================')
-            }
-          }}
+          onFinish={(val) => login({ variables: val })}
+          // onFinish={async (val) => {
+          //   try {
+          //     await login({ variables: val })
+          //     console.log('====================================')
+          //     console.log(data)
+          //     console.log('====================================')
+          //   const response = await signIn('credentials', {
+          //     redirect: false,
+          //     ...val,
+          //   })
+          //   router.push('/')
+          // } catch (e) {
+          //   console.log('====================================')
+          //   console.log(e)
+          //   console.log('====================================')
+          // }
+          // }}
           layout="vertical"
         >
           <Form.Item
