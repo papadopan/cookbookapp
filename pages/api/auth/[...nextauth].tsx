@@ -2,15 +2,11 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export default NextAuth({
-  session: {
-    jwt: true,
-  },
+  session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
-      async authorize(credentials) {
-        console.log('====================================')
-        console.log(credentials)
-        console.log('====================================')
+      async authorize(credentials, req) {
+        return { email: 'antonios.papadopan@gmail.com' }
       },
     }),
   ],

@@ -5,9 +5,11 @@ import { LOGIN } from './login'
 import { useMutation } from '@apollo/client'
 import axios from 'axios'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const Login = (props) => {
   const [login, { data, loading, error }] = useMutation(LOGIN)
+  const router = useRouter()
 
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
@@ -24,9 +26,7 @@ const Login = (props) => {
                 redirect: false,
                 ...val,
               })
-              console.log('====================================')
-              console.log(response)
-              console.log('====================================')
+              router.push('/')
             } catch (e) {
               console.log('====================================')
               console.log(e)
