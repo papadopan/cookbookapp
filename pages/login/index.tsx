@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Button, Col, Form, Input, Row, Typography } from 'antd'
 import { LOGIN } from './login'
 import { useMutation } from '@apollo/client'
+import axios from 'axios'
+import { signIn } from 'next-auth/react'
 
 const Login = (props) => {
   const [login, { data, loading, error }] = useMutation(LOGIN)
@@ -15,7 +17,22 @@ const Login = (props) => {
         <Form
           name="login"
           style={{ marginTop: '20px' }}
-          onFinish={(val) => login({ variables: val })}
+          // onFinish={(val) => login({ variables: val })}
+          onFinish={async (val) => {
+            try {
+              const response = await signIn('credentials', {
+                redirect: false,
+                ...val,
+              })
+              console.log('====================================')
+              console.log(response)
+              console.log('====================================')
+            } catch (e) {
+              console.log('====================================')
+              console.log(e)
+              console.log('====================================')
+            }
+          }}
           layout="vertical"
         >
           <Form.Item
