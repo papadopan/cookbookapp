@@ -7,7 +7,11 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 const Login = (props) => {
-  const [login, { data, loading, error }] = useMutation(LOGIN)
+  const [login, { data, loading, error }] = useMutation(LOGIN, {
+    onError: (err) => {
+      return err
+    },
+  })
   const router = useRouter()
 
   const loginWithEmail = async (email: string) => {
@@ -26,6 +30,8 @@ const Login = (props) => {
     }
   }, [data, error])
 
+  if (error) return <div>there is an error</div>
+
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
       <Col span={12} style={{ background: '#fff', padding: '15px 10px' }}>
@@ -35,23 +41,6 @@ const Login = (props) => {
           name="login"
           style={{ marginTop: '20px' }}
           onFinish={(val) => login({ variables: val })}
-          // onFinish={async (val) => {
-          //   try {
-          //     await login({ variables: val })
-          //     console.log('====================================')
-          //     console.log(data)
-          //     console.log('====================================')
-          //   const response = await signIn('credentials', {
-          //     redirect: false,
-          //     ...val,
-          //   })
-          //   router.push('/')
-          // } catch (e) {
-          //   console.log('====================================')
-          //   console.log(e)
-          //   console.log('====================================')
-          // }
-          // }}
           layout="vertical"
         >
           <Form.Item
