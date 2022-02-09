@@ -7,6 +7,13 @@ export default NextAuth({
   jwt: {
     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
   },
+  callbacks: {
+    async jwt(token) {
+      console.log('====================================')
+      console.log(token)
+      console.log('====================================')
+    },
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,

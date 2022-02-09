@@ -8,8 +8,8 @@ import { useRouter } from 'next/router'
 
 const Login = (props) => {
   const [login, { data, loading, error }] = useMutation(LOGIN, {
-    onError: (err) => {
-      return err
+    onError(error) {
+      return error
     },
   })
   const router = useRouter()
@@ -26,9 +26,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (data && !error) {
-      loginWithEmail(data.login.user.email)
+      loginWithEmail(data.login.email)
     }
-  }, [data, error])
+  }, [data])
 
   if (error) return <div>there is an error</div>
 
