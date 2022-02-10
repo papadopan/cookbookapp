@@ -7,12 +7,11 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { useRouter } from 'next/router'
-import { signOut, useSession } from 'next-auth/react'
 
 const HeaderMenu = ({}) => {
   const router = useRouter()
-  const { data: session } = useSession()
-  const loggedIn = session?.user
+
+  const loggedIn = false
 
   return loggedIn ? (
     <Menu title="mainmenu" selectable={false} mode="horizontal">

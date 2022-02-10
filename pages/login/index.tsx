@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Button, Col, Form, Input, Row, Typography } from 'antd'
 import { LOGIN } from './login'
 import { useMutation } from '@apollo/client'
-import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 
 const Login = (props) => {
   const [login, { data, loading, error }] = useMutation(LOGIN, {
@@ -12,29 +12,14 @@ const Login = (props) => {
       return error
     },
   })
-  const router = useRouter()
-
-  const loginWithEmail = async (credentials: {
-    email: string
-    name: string
-  }) => {
-    try {
-      await signIn('credentials', {
-        redirect: false,
-        email: credentials.email,
-        name: credentials.name,
-      })
-      router.push('/')
-    } catch (e) {}
-  }
-
-  useEffect(() => {
-    if (data && !error) {
-      loginWithEmail(data.login)
-    }
-  }, [data])
 
   if (error) return <div>there is an error</div>
+
+  useEffect(() => {
+    if (data && data.login) {
+      Cookies.set('ckbk', data.login.token)
+    }
+  }, [data])
 
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>

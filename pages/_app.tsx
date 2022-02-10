@@ -2,30 +2,40 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Layout } from 'antd'
 import Header from '../components/Header'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
-import { SessionProvider } from 'next-auth/react'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from '@apollo/client'
+import Cookies from 'js-cookie'
 
-const client = new ApolloClient({
+const link = new HttpLink({
   uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache(),
+  credentials: 'same-origin',
+  headers: { Authentication: `Bearer ${Cookies.get('ckbk')}` },
 })
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const client = new ApolloClient({
+  link: link,
+  cache: new InMemoryCache(),
+  credentials: 'include',
+})
+
+function MyApp({ Component, pageProps: pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <SessionProvider session={session} refetchInterval={5 * 60}>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Layout.Header>
-            <Header />
-          </Layout.Header>
-          <Layout.Content>
-            <Component {...pageProps} />
-          </Layout.Content>
-          <Layout.Footer style={{ textAlign: 'center' }}>
-            Cookbook ©2022
-          </Layout.Footer>
-        </Layout>
-      </SessionProvider>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Layout.Header>
+          <Header />
+        </Layout.Header>
+        <Layout.Content>
+          <Component {...pageProps} />
+        </Layout.Content>
+        <Layout.Footer style={{ textAlign: 'center' }}>
+          Cookbook ©2022
+        </Layout.Footer>
+      </Layout>
     </ApolloProvider>
   )
 }
