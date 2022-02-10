@@ -14,11 +14,15 @@ const Login = (props) => {
   })
   const router = useRouter()
 
-  const loginWithEmail = async (email: string) => {
+  const loginWithEmail = async (credentials: {
+    email: string
+    name: string
+  }) => {
     try {
       await signIn('credentials', {
         redirect: false,
-        email,
+        email: credentials.email,
+        name: credentials.name,
       })
       router.push('/')
     } catch (e) {}
@@ -26,7 +30,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (data && !error) {
-      loginWithEmail(data.login.email)
+      loginWithEmail(data.login)
     }
   }, [data])
 
