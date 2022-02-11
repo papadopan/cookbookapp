@@ -12,7 +12,7 @@ import Cookies from 'js-cookie'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/graphql',
-  credentials: 'same-origin',
+  credentials: 'include',
   headers: { Authentication: `Bearer ${Cookies.get('ckbk')}` },
 })
 

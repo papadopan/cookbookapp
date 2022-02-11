@@ -19,7 +19,7 @@ const HeaderMenu = ({}) => {
         <Menu.Item icon={<UserOutlined />}>Account</Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Divider />
-        <Menu.Item icon={<LogoutOutlined />} onClick={() => signOut()}>
+        <Menu.Item icon={<LogoutOutlined />} onClick={() => {}}>
           Logout
         </Menu.Item>
       </Menu.SubMenu>
