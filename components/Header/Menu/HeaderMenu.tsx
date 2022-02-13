@@ -18,6 +18,7 @@ const HeaderMenu = ({}) => {
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
   const [logout, { data, error, loading }] = useMutation(LOGOUT)
   if (error) return <div>there is ane error</div>
+
   return loggedIn ? (
     <Menu title="mainmenu" selectable={false} mode="horizontal">
       <Menu.SubMenu icon={<UserOutlined />} title="Antonios" key="submenu">
