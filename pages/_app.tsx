@@ -9,6 +9,8 @@ import {
   HttpLink,
 } from '@apollo/client'
 import Cookies from 'js-cookie'
+import { Provider } from 'react-redux'
+import { store } from '../redux/store'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -25,17 +27,19 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps: pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Layout.Header>
-          <Header />
-        </Layout.Header>
-        <Layout.Content>
-          <Component {...pageProps} />
-        </Layout.Content>
-        <Layout.Footer style={{ textAlign: 'center' }}>
-          Cookbook ©2022
-        </Layout.Footer>
-      </Layout>
+      <Provider store={store}>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Layout.Header>
+            <Header />
+          </Layout.Header>
+          <Layout.Content>
+            <Component {...pageProps} />
+          </Layout.Content>
+          <Layout.Footer style={{ textAlign: 'center' }}>
+            Cookbook ©2022
+          </Layout.Footer>
+        </Layout>
+      </Provider>
     </ApolloProvider>
   )
 }

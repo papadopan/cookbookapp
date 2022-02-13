@@ -1,12 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Cookies from 'js-cookie'
 
 const Home: NextPage = () => {
-  console.log('====================================')
-  console.log(Cookies.get())
-  console.log('====================================')
   return (
     <div>
       <Head>

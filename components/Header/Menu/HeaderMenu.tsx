@@ -7,19 +7,30 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { useRouter } from 'next/router'
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
+import { logout as stateLogout } from '../../../redux/features/userSlice'
+import { LOGOUT } from '../graphql/logout'
+import { useMutation } from '@apollo/client'
 
 const HeaderMenu = ({}) => {
   const router = useRouter()
-
-  const loggedIn = false
-
+  const dispatch = useAppDispatch()
+  const loggedIn = useAppSelector((state) => state.user.loggedIn)
+  const [logout, { data, error, loading }] = useMutation(LOGOUT)
+  if (error) return <div>there is ane error</div>
   return loggedIn ? (
     <Menu title="mainmenu" selectable={false} mode="horizontal">
       <Menu.SubMenu icon={<UserOutlined />} title="Antonios" key="submenu">
         <Menu.Item icon={<UserOutlined />}>Account</Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Divider />
-        <Menu.Item icon={<LogoutOutlined />} onClick={() => {}}>
+        <Menu.Item
+          icon={<LogoutOutlined />}
+          onClick={() => {
+            logout({ variables: { email: 'antonios.papadopan@gmail.com' } })
+            dispatch(stateLogout())
+          }}
+        >
           Logout
         </Menu.Item>
       </Menu.SubMenu>

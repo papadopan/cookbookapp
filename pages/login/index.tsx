@@ -4,23 +4,26 @@ import { Button, Col, Form, Input, Row, Typography } from 'antd'
 import { LOGIN } from './login'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import { useAppDispatch } from '../../redux/hooks'
+import { login as stateLogin } from '../../redux/features/userSlice'
 
 const Login = (props) => {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
   const [login, { data, loading, error }] = useMutation(LOGIN, {
     onError(error) {
       return error
     },
   })
 
-  if (error) return <div>there is an error</div>
-
   useEffect(() => {
     if (data && data.login) {
-      Cookies.set('ckbk', data.login.token)
+      dispatch(stateLogin())
+      router.push('/')
     }
   }, [data])
 
+  if (error) return <div>there is an error</div>
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
       <Col span={12} style={{ background: '#fff', padding: '15px 10px' }}>
