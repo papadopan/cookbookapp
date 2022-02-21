@@ -18,12 +18,11 @@ const Login = (props) => {
 
   useEffect(() => {
     if (data && data.login) {
-      dispatch(stateLogin())
+      dispatch(stateLogin(data.login))
       router.push('/')
     }
   }, [data])
 
-  if (error) return <div>there is an error</div>
   return (
     <Row justify="center" style={{ padding: '20px 0 ' }}>
       <Col span={12} style={{ background: '#fff', padding: '15px 10px' }}>
@@ -40,7 +39,10 @@ const Login = (props) => {
             label="Email"
             name="email"
             rules={[
-              { required: true, message: 'Please input your email!' },
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
               {
                 message: 'Please provide a valid email',
                 pattern:
@@ -72,6 +74,9 @@ const Login = (props) => {
               Submit
             </Button>
           </Form.Item>
+          {error && (
+            <Typography.Text type="danger">{error.message}</Typography.Text>
+          )}
         </Form>
       </Col>
     </Row>
