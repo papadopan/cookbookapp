@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Layout } from 'antd'
 import Header from '../components/Header'
+import '../styles/antd.less'
+
 import {
   ApolloClient,
   InMemoryCache,
