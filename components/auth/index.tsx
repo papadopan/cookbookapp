@@ -27,7 +27,6 @@ const Auth = ({ children }) => {
       dispatch(logout())
     }
     if (data && !loading) {
-      router.push('/')
       dispatch(login(data.me))
     }
   }, [data, error, loading])

@@ -31,6 +31,12 @@ const HeaderMenu = ({}) => {
           Account
         </Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
+        <Menu.Item
+          icon={<SettingOutlined />}
+          onClick={() => router.push('/cookbook')}
+        >
+          CookBooks
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item
           icon={<LogoutOutlined />}

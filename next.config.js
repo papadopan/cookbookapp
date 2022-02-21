@@ -16,7 +16,7 @@ module.exports = withLess({
       /* ... */
       modifyVars: {
         "border-radius-base": "2px",
-        "primary-color": "#52c41a",
+        "primary-color": "#2cbe62",
         "link-color": "#1890ff", // link color
         "success-color": "#52c41a", // success state color
         "warning-color": "#faad14", // warning state color
