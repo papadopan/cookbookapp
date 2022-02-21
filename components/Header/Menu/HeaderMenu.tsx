@@ -34,6 +34,7 @@ const HeaderMenu = ({}) => {
         <Menu.Item
           icon={<LogoutOutlined />}
           onClick={() => {
+            router.push('/login')
             logout({ variables: { email: 'antonios.papadopan@gmail.com' } })
             dispatch(stateLogout())
           }}

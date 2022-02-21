@@ -11,7 +11,7 @@ import {
 
 import { Provider } from 'react-redux'
 import { store } from '../redux/store'
-import Auth from '../components/Header/auth'
+import Auth from '../components/auth/index'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -28,17 +28,19 @@ function MyApp({ Component, pageProps: pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Layout.Header>
-            <Header />
-          </Layout.Header>
-          <Layout.Content>
-            <Component {...pageProps} />
-          </Layout.Content>
-          <Layout.Footer style={{ textAlign: 'center' }}>
-            Cookbook ©2022
-          </Layout.Footer>
-        </Layout>
+        <Auth>
+          <Layout style={{ minHeight: '100vh' }}>
+            <Layout.Header>
+              <Header />
+            </Layout.Header>
+            <Layout.Content>
+              <Component {...pageProps} />
+            </Layout.Content>
+            <Layout.Footer style={{ textAlign: 'center' }}>
+              Cookbook ©2022
+            </Layout.Footer>
+          </Layout>
+        </Auth>
       </Provider>
     </ApolloProvider>
   )

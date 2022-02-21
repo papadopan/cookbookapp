@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 import Header from '../components/Header'
+
 function App({ Component, pageProps: pageProps }: AppProps) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
