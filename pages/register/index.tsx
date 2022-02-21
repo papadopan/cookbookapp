@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Col, Form, Input, Row, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Typography, notification } from 'antd'
 import { useMutation } from '@apollo/client'
 import { REGISTER } from './register'
+import { useRouter } from 'next/router'
 
 const index = (props) => {
-  const [register, { data, loading, error }] = useMutation(REGISTER)
+  const [register, { data, loading, error }] = useMutation(REGISTER, {
+    onError(error) {
+      return error
+    },
+  })
 
-  console.log(data, loading, error)
+  const router = useRouter()
+
+  if (error) return <div>{error.message}</div>
+
+  useEffect(() => {
+    if (!loading && data && data.signup) {
+      router.push({
+        pathname: '/login',
+        query: { email: data.signup.email },
+      })
+      notification.success({
+        message: 'SignUp Successfuly',
+        description: 'Congartulations, now you can login to out platform',
+      })
+    }
+  }, [data])
 
   return (
     <Row justify="center" align="middle" style={{ padding: '20px 0' }}>
@@ -19,7 +39,9 @@ const index = (props) => {
         <Form
           layout="vertical"
           style={{ marginTop: '20px' }}
-          onFinish={(val) => register({ variables: { options: val } })}
+          onFinish={(val) => {
+            register({ variables: { options: val } })
+          }}
         >
           <Form.Item
             label="First Name"
