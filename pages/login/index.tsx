@@ -33,6 +33,7 @@ const Login = (props) => {
           name="login"
           style={{ marginTop: '20px' }}
           onFinish={(val) => login({ variables: val })}
+          initialValues={{ email: router.query.email }}
           layout="vertical"
         >
           <Form.Item

@@ -18,6 +18,7 @@ const HeaderMenu = ({}) => {
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
   const user = useAppSelector((state) => state.user.user)
   const [logout, { data, error, loading }] = useMutation(LOGOUT)
+
   if (error) return <div>there is ane error</div>
 
   return loggedIn ? (

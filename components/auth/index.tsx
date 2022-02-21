@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { gql, useQuery } from '@apollo/client'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks'
 import { login, logout } from '../../redux/features/userSlice'
 import { useRouter } from 'next/router'
 
@@ -16,7 +16,6 @@ const ME = gql`
   }
 `
 const Auth = ({ children }) => {
-  const loggedIn = useAppSelector((state) => state.user.loggedIn)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -29,7 +28,7 @@ const Auth = ({ children }) => {
     }
     if (data && !loading) {
       router.push('/')
-      dispatch(login())
+      dispatch(login(data.me))
     }
   }, [data, error, loading])
 
