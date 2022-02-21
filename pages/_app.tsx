@@ -28,19 +28,17 @@ function MyApp({ Component, pageProps: pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <Auth>
-          <Layout style={{ minHeight: '100vh' }}>
-            <Layout.Header>
-              <Header />
-            </Layout.Header>
-            <Layout.Content>
-              <Component {...pageProps} />
-            </Layout.Content>
-            <Layout.Footer style={{ textAlign: 'center' }}>
-              Cookbook ©2022
-            </Layout.Footer>
-          </Layout>
-        </Auth>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Layout.Header>
+            <Header />
+          </Layout.Header>
+          <Layout.Content>
+            <Component {...pageProps} />
+          </Layout.Content>
+          <Layout.Footer style={{ textAlign: 'center' }}>
+            Cookbook ©2022
+          </Layout.Footer>
+        </Layout>
       </Provider>
     </ApolloProvider>
   )

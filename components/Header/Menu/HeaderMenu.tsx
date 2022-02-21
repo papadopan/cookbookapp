@@ -16,13 +16,19 @@ const HeaderMenu = ({}) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
+  const user = useAppSelector((state) => state.user.user)
   const [logout, { data, error, loading }] = useMutation(LOGOUT)
   if (error) return <div>there is ane error</div>
 
   return loggedIn ? (
     <Menu title="mainmenu" selectable={false} mode="horizontal">
-      <Menu.SubMenu icon={<UserOutlined />} title="Antonios" key="submenu">
-        <Menu.Item icon={<UserOutlined />}>Account</Menu.Item>
+      <Menu.SubMenu icon={<UserOutlined />} title={user?.name} key="submenu">
+        <Menu.Item
+          icon={<UserOutlined />}
+          onClick={() => router.push('/profile')}
+        >
+          Account
+        </Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Divider />
         <Menu.Item
