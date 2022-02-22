@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Menu, Space } from 'antd'
 import {
+  BookOutlined,
   LogoutOutlined,
   SettingOutlined,
   UserOutlined,
@@ -32,7 +33,7 @@ const HeaderMenu = ({}) => {
         </Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Item
-          icon={<SettingOutlined />}
+          icon={<BookOutlined />}
           onClick={() => router.push('/cookbook')}
         >
           CookBooks

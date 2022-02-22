@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../redux/hooks'
 import { login, logout } from '../../redux/features/userSlice'
 import { useRouter } from 'next/router'
 
-const ME = gql`
+export const ME = gql`
   query Me {
     me {
       id
