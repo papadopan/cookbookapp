@@ -31,13 +31,13 @@ const HeaderMenu = ({}) => {
         >
           Account
         </Menu.Item>
-        <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Item
           icon={<BookOutlined />}
           onClick={() => router.push('/cookbook')}
         >
           CookBooks
         </Menu.Item>
+        <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Divider />
         <Menu.Item
           icon={<LogoutOutlined />}

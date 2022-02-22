@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Col, Row, Modal, Form, Input, Space, Card } from 'antd'
 import { useAppSelector } from '../../redux/hooks'
 import { useMutation } from '@apollo/client'
 import { createCookbook } from './cookbook'
 import { ME } from '../../components/auth'
+
 const CookBook = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [form] = Form.useForm()
@@ -48,9 +49,12 @@ const CookBook = (props) => {
           <Form.Item
             name="description"
             label="Description"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true },
+              { max: 240, message: 'Max 240 characters' },
+            ]}
           >
-            <Input />
+            <Input.TextArea rows={5} />
           </Form.Item>
         </Form>
       </Modal>
@@ -59,19 +63,15 @@ const CookBook = (props) => {
           Add CookBook
         </Button>
       </Row>
-      <Col>
-        <Space size="large" style={{ flexWrap: 'wrap' }}>
-          {user?.books?.map((item) => (
-            <Card
-              style={{ minWidth: '300px' }}
-              title={item.title}
-              extra={item.recipes?.length}
-            >
+      <Row gutter={[16, 16]} style={{ marginTop: '20px' }}>
+        {user?.books?.map((item) => (
+          <Col span={6}>
+            <Card title={item.title} extra={item.recipes?.length}>
               {item.description}
             </Card>
-          ))}
-        </Space>
-      </Col>
+          </Col>
+        ))}
+      </Row>
     </Row>
   )
 }
