@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Col, Row, Modal, Form, Input } from 'antd'
+import {
+  Button,
+  Col,
+  Row,
+  Modal,
+  Form,
+  Input,
+  Typography,
+  Space,
+  Card,
+} from 'antd'
 import { useAppSelector } from '../../redux/hooks'
 import { useMutation, useQuery } from '@apollo/client'
 import { createCookbook, mybooks } from './cookbook'
@@ -57,7 +67,14 @@ const CookBook = (props) => {
           Add CookBook
         </Button>
       </Row>
-      <Col>Cookbokok</Col>
+
+      <Col>
+        <Space>
+          {user?.books.map((item) => (
+            <Card title={item.title}>{item.description}</Card>
+          ))}
+        </Space>
+      </Col>
     </Row>
   )
 }

@@ -12,6 +12,10 @@ const ME = gql`
       name
       lastName
       email
+      books {
+        title
+        description
+      }
     }
   }
 `
