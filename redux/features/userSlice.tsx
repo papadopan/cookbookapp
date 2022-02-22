@@ -1,8 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+interface Recipe {
+  title: string
+  description: string
+}
+interface Books {
+  title: string
+  description: string
+  recipes: Recipe[]
+}
 interface User {
   name: string
   email: string
+  books: Books[]
 }
 interface UserState {
   loggedIn: boolean

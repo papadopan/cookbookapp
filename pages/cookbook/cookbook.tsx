@@ -8,12 +8,3 @@ export const createCookbook = gql`
     }
   }
 `
-
-export const mybooks = gql`
-  query MyBook($myBookId: Float!) {
-    myBooks(id: $myBookId) {
-      title
-      description
-    }
-  }
-`

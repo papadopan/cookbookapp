@@ -13,7 +13,7 @@ import {
 } from 'antd'
 import { useAppSelector } from '../../redux/hooks'
 import { useMutation, useQuery } from '@apollo/client'
-import { createCookbook, mybooks } from './cookbook'
+import { createCookbook } from './cookbook'
 
 const CookBook = (props) => {
   const [showModal, setShowModal] = useState(false)
@@ -69,11 +69,11 @@ const CookBook = (props) => {
       </Row>
 
       <Col>
-        <Space>
-          {user?.books.map((item) => (
-            <Card title={item.title}>{item.description}</Card>
-          ))}
-        </Space>
+        {user?.books?.map((item) => (
+          <Card title={item.title} extra={item.recipes?.length}>
+            {item.description}
+          </Card>
+        ))}
       </Col>
     </Row>
   )

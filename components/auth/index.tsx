@@ -15,6 +15,10 @@ const ME = gql`
       books {
         title
         description
+        recipes {
+          title
+          description
+        }
       }
     }
   }
