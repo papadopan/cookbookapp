@@ -23,13 +23,13 @@ const HeaderMenu = ({}) => {
   if (error) return <div>there is ane error</div>
 
   return loggedIn ? (
-    <Menu title="mainmenu" selectable={false} mode="horizontal">
+    <Menu title="mainmenu" selectable={false} mode="horizontal" theme="dark">
       <Menu.SubMenu icon={<UserOutlined />} title={user?.name} key="submenu">
         <Menu.Item
           icon={<UserOutlined />}
           onClick={() => router.push('/profile')}
         >
-          Account
+          Profile
         </Menu.Item>
         <Menu.Item
           icon={<BookOutlined />}
