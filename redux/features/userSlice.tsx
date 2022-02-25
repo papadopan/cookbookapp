@@ -4,6 +4,7 @@ interface Recipe {
   description: string
 }
 interface Books {
+  id: string
   title: string
   description: string
   recipes: Recipe[]

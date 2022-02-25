@@ -7,6 +7,7 @@ export const LOGIN = gql`
       email
       id
       books {
+        id
         title
         description
         recipes {

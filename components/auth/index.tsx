@@ -13,6 +13,7 @@ export const ME = gql`
       lastName
       email
       books {
+        id
         title
         description
         recipes {

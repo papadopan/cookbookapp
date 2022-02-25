@@ -5,13 +5,8 @@ import { useAppSelector } from '../../redux/hooks'
 import { useMutation } from '@apollo/client'
 import { createCookbook } from './cookbook'
 import { ME } from '../../components/auth'
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  PlusOutlined,
-  SettingOutlined,
-  SwapRightOutlined,
-} from '@ant-design/icons'
+import { PlusOutlined, SwapRightOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 const CookBook = (props) => {
   const [showModal, setShowModal] = useState(false)
@@ -77,13 +72,15 @@ const CookBook = (props) => {
       <Row gutter={[16, 16]} style={{ marginTop: '20px', width: '100%' }}>
         {user?.books?.map((item) => (
           <Col span={6}>
-            <Card
-              title={item.title}
-              extra={item.recipes?.length}
-              actions={[<SwapRightOutlined key="ellipsis" />]}
-            >
-              {item.description}
-            </Card>
+            <Link href={`/cookbook/${item.id}`}>
+              <Card
+                title={item.title}
+                extra={item.recipes?.length}
+                actions={[<SwapRightOutlined key="ellipsis" />]}
+              >
+                {item.description}
+              </Card>
+            </Link>
           </Col>
         ))}
       </Row>
