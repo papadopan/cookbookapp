@@ -4,6 +4,7 @@ import { Button, Menu, Space } from 'antd'
 import {
   BookOutlined,
   LogoutOutlined,
+  PlusOutlined,
   SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons'
@@ -26,16 +27,22 @@ const HeaderMenu = ({}) => {
     <Menu title="mainmenu" selectable={false} mode="horizontal" theme="dark">
       <Menu.SubMenu icon={<UserOutlined />} title={user?.name} key="submenu">
         <Menu.Item
-          icon={<UserOutlined />}
-          onClick={() => router.push('/profile')}
+          icon={<PlusOutlined />}
+          onClick={() => router.push('/recipe')}
         >
-          Profile
+          Add Recipe
         </Menu.Item>
         <Menu.Item
           icon={<BookOutlined />}
           onClick={() => router.push('/cookbook')}
         >
           CookBooks
+        </Menu.Item>
+        <Menu.Item
+          icon={<UserOutlined />}
+          onClick={() => router.push('/profile')}
+        >
+          Profile
         </Menu.Item>
         <Menu.Item icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Divider />
