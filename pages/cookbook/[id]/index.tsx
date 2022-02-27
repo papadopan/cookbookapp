@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { mybook } from './cookbookid'
-import { Col, PageHeader, Row, Layout, Card, Typography } from 'antd'
+import { Col, PageHeader, Row, Layout, Card, Typography, Space } from 'antd'
+import {
+  ClockCircleOutlined,
+  StarOutlined,
+  TeamOutlined,
+} from '@ant-design/icons'
 
 const CookBookID = (props) => {
   const router = useRouter()
@@ -31,7 +36,24 @@ const CookBookID = (props) => {
               md={{ span: 12, offset: 0 }}
               lg={4}
             >
-              <Card>
+              <Card
+                actions={[
+                  <Space key="time">
+                    <Typography.Text type="secondary">30 min</Typography.Text>
+                    <ClockCircleOutlined />
+                  </Space>,
+                  <Space>
+                    <Typography.Text type="secondary">
+                      9 portions
+                    </Typography.Text>
+                    <TeamOutlined />
+                  </Space>,
+                  <Space>
+                    <Typography.Text type="secondary">3.5</Typography.Text>
+                    <StarOutlined />
+                  </Space>,
+                ]}
+              >
                 <Typography.Title level={5}>{item.title}</Typography.Title>
                 <Typography.Text type="secondary">
                   {item.description}
