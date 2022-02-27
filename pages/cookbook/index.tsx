@@ -71,12 +71,7 @@ const CookBook = (props) => {
       </Row>
       <Row gutter={[16, 16]} style={{ marginTop: '20px', width: '100%' }}>
         {user?.books?.map((item) => (
-          <Col
-            xs={{ span: 22, offset: 1 }}
-            md={{ span: 12, offset: 0 }}
-            lg={8}
-            xl={6}
-          >
+          <Col xs={{ span: 22, offset: 1 }} md={{ span: 12, offset: 0 }} lg={4}>
             <Link href={`/cookbook/${item.id}`}>
               <Card
                 title={item.title}
