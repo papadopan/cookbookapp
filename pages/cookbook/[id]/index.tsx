@@ -1,16 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useQuery } from '@apollo/client'
 import { mybook } from './cookbookid'
-import { Col, PageHeader, Row, Layout, Card, Typography, Space } from 'antd'
+import {
+  Col,
+  PageHeader,
+  Row,
+  Layout,
+  Card,
+  Typography,
+  Space,
+  Button,
+  Dropdown,
+  Menu,
+} from 'antd'
 import {
   ClockCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  SettingOutlined,
   StarOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
 
-const CookBookID = (props) => {
+const CookBookID = () => {
   const router = useRouter()
   const { id } = router.query
 
@@ -20,6 +35,15 @@ const CookBookID = (props) => {
 
   if (loading) return <div>Loading....</div>
   if (error) return <div>{error.message}</div>
+
+  const menu = (
+    <Menu>
+      <Menu.Item icon={<EditOutlined />}>Edit</Menu.Item>
+      <Menu.Item danger icon={<DeleteOutlined />}>
+        Delete
+      </Menu.Item>
+    </Menu>
+  )
   const { myBook } = data
   return (
     <Layout>
@@ -27,6 +51,13 @@ const CookBookID = (props) => {
         title={myBook.title}
         subTitle={myBook.description}
         onBack={() => router.back()}
+        extra={[
+          <Dropdown overlay={menu} trigger={['click']}>
+            <Button icon={<SettingOutlined />} type="primary">
+              Settings
+            </Button>
+          </Dropdown>,
+        ]}
       />
       <Layout.Content style={{ padding: '15px' }}>
         <Row>
@@ -53,11 +84,16 @@ const CookBookID = (props) => {
                     <StarOutlined />
                   </Space>,
                 ]}
+                cover={
+                  <Image
+                    height={250}
+                    width={450}
+                    alt="example"
+                    src="https://images.unsplash.com/photo-1612874742237-6526221588e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3BhZ2hldHRpJTIwY2FyYm9uYXJhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                  />
+                }
               >
-                <Typography.Title level={5}>{item.title}</Typography.Title>
-                <Typography.Text type="secondary">
-                  {item.description}
-                </Typography.Text>
+                <Card.Meta title={item.title} description={item.description} />
               </Card>
             </Col>
           ))}
