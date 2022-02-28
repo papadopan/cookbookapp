@@ -1,23 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Space,
-  Typography,
-} from 'antd'
+import { Button, Col, Form, Input, Row, Space, Typography } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-
+import { useAppSelector } from '../../redux/hooks'
+import { useMutation } from '@apollo/client'
+import { RECIPE } from './recipe'
+import { ME } from '../../components/auth'
 const Recipe = (props) => {
+  const user = useAppSelector((state) => state.user.user)
+  const [recipe, { data, loading, error }] = useMutation(RECIPE, {
+    refetchQueries: [ME],
+  })
+
   return (
     <Row justify="center" style={{ paddingTop: '15px' }}>
-      <Col span={12} style={{ background: '#fff', padding: '15px' }}>
+      <Col
+        xs={22}
+        sm={18}
+        lg={16}
+        xl={12}
+        style={{ background: '#fff', padding: '15px' }}
+      >
         <Typography.Title level={4}>Add New Recipe</Typography.Title>
-        <Form name="basic" layout="vertical" style={{ marginTop: '50px' }}>
+        <Form
+          name="basic"
+          layout="vertical"
+          style={{ marginTop: '50px' }}
+          onFinish={(val) => {
+            val.userId = Number(user?.id)
+            val.cookBookId = 5
+            recipe({ variables: { options: val } })
+          }}
+        >
           <Form.Item
             label="Title"
             name="title"
@@ -38,7 +52,7 @@ const Recipe = (props) => {
               placeholder="Provide a description of the recipe..."
             />
           </Form.Item>
-          <Form.List name="users">
+          <Form.List name="ingredients">
             {(fields, { add, remove }) => (
               <>
                 <Typography.Title level={5}>Ingredient List</Typography.Title>
@@ -63,13 +77,7 @@ const Recipe = (props) => {
                     >
                       <Input placeholder="provide ingredient title" />
                     </Form.Item>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'description']}
-                      label="Description"
-                    >
-                      <Input placeholder="provide ingredient description" />
-                    </Form.Item>
+
                     <Form.Item
                       {...restField}
                       name={[name, 'quantity']}
@@ -81,7 +89,10 @@ const Recipe = (props) => {
                         },
                       ]}
                     >
-                      <Input placeholder="provide ingredient quantity" />
+                      <Input
+                        type="number"
+                        placeholder="provide ingredient quantity"
+                      />
                     </Form.Item>
                     <Form.Item
                       {...restField}
@@ -95,6 +106,13 @@ const Recipe = (props) => {
                       ]}
                     >
                       <Input placeholder="provide ingredient measurement" />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'description']}
+                      label="Additional Information"
+                    >
+                      <Input.TextArea placeholder="provide additional information" />
                     </Form.Item>
                     <Button
                       danger
