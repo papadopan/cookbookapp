@@ -16,3 +16,12 @@ export const RECIPE = gql`
     }
   }
 `
+
+export const MYBOOKS = gql`
+  query AllBooks($allBooksId: Float!) {
+    allBooks(id: $allBooksId) {
+      id
+      title
+    }
+  }
+`

@@ -1,15 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Col, Form, Input, Row, Space, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Select, Space, Typography } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { useAppSelector } from '../../redux/hooks'
-import { useMutation } from '@apollo/client'
-import { RECIPE } from './recipe'
+import { useMutation, useQuery } from '@apollo/client'
+import { RECIPE, MYBOOKS } from './recipe'
 import { ME } from '../../components/auth'
-const Recipe = (props) => {
+
+const Recipe = () => {
   const user = useAppSelector((state) => state.user.user)
-  const [recipe, { data, loading, error }] = useMutation(RECIPE, {
+  const [recipe] = useMutation(RECIPE, {
     refetchQueries: [ME],
+  })
+
+  const { data } = useQuery(MYBOOKS, {
+    variables: { allBooksId: Number(user?.id) },
   })
 
   return (
@@ -28,7 +33,7 @@ const Recipe = (props) => {
           style={{ marginTop: '50px' }}
           onFinish={(val) => {
             val.userId = Number(user?.id)
-            val.cookBookId = 5
+            val.cookBookId = Number(val.cookBookId)
             recipe({ variables: { options: val } })
           }}
         >
@@ -51,6 +56,15 @@ const Recipe = (props) => {
               rows={5}
               placeholder="Provide a description of the recipe..."
             />
+          </Form.Item>
+          <Form.Item label="CookBook" name="cookBookId">
+            <Select>
+              {data?.allBooks.map((book) => (
+                <Select.Option key={book.id} value={book.id}>
+                  {book.title}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.List name="ingredients">
             {(fields, { add, remove }) => (
