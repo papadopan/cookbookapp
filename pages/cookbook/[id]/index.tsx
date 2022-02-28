@@ -60,12 +60,14 @@ const CookBookID = () => {
         ]}
       />
       <Layout.Content style={{ padding: '15px' }}>
-        <Row>
+        <Row gutter={[16, 16]}>
           {myBook?.recipes.map((item) => (
             <Col
               xs={{ span: 22, offset: 1 }}
               md={{ span: 12, offset: 0 }}
-              lg={4}
+              lg={8}
+              xl={6}
+              xxl={4}
             >
               <Card
                 actions={[
