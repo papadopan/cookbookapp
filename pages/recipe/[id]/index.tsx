@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { getRecipe } from './recipe'
 import { useQuery } from '@apollo/client'
-import { Col, Row, Space, Typography } from 'antd'
+import { Col, Row, Space, Steps, Typography } from 'antd'
 import Image from 'next/image'
 
 const Recipe = (props) => {
@@ -40,6 +40,20 @@ const Recipe = (props) => {
           </Col>
           <Col xs={22} lg={12}>
             <Typography.Title level={3}>Steps</Typography.Title>
+            <Steps progressDot current={0} direction="vertical">
+              <Steps.Step
+                title="Finished"
+                description="This is a description."
+              />
+              <Steps.Step
+                title="In Progress"
+                description="This is a description."
+              />
+              <Steps.Step
+                title="Waiting"
+                description="This is a description."
+              />
+            </Steps>
           </Col>
         </Row>
       </Col>
