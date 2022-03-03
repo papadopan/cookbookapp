@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { mybook } from './cookbookid'
+import { deleteCookBook } from './cookbookid'
 import {
   Col,
   PageHeader,
@@ -15,6 +16,7 @@ import {
   Button,
   Dropdown,
   Menu,
+  notification,
 } from 'antd'
 import {
   ClockCircleOutlined,
@@ -24,6 +26,7 @@ import {
   StarOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
+import { ME } from '../../../components/auth'
 
 const CookBookID = () => {
   const router = useRouter()
@@ -33,13 +36,35 @@ const CookBookID = () => {
     variables: { myBookId: Number(id) },
   })
 
+  const [deleteBook, { data: deleteData, error: deleteError }] = useMutation(
+    deleteCookBook,
+    {
+      refetchQueries: [ME],
+    }
+  )
+
+  useEffect(() => {
+    if (deleteData) {
+      const { deleteBook } = deleteData
+      router.push('/cookbook')
+      notification.success({
+        message: 'CookBook Deleted',
+        description: `${deleteBook.title} deleted successfully`,
+      })
+    }
+  }, [deleteData])
+
   if (loading) return <div>Loading....</div>
   if (error) return <div>{error.message}</div>
 
   const menu = (
     <Menu>
       <Menu.Item icon={<EditOutlined />}>Edit</Menu.Item>
-      <Menu.Item danger icon={<DeleteOutlined />}>
+      <Menu.Item
+        danger
+        icon={<DeleteOutlined />}
+        onClick={() => deleteBook({ variables: { deleteBookId: Number(id) } })}
+      >
         Delete
       </Menu.Item>
     </Menu>
@@ -69,7 +94,9 @@ const CookBookID = () => {
               xl={6}
               xxl={4}
             >
+              {console.log('----', item)}
               <Card
+                onClick={() => router.push(`/recipe/${item.id}`)}
                 actions={[
                   <Space key="time">
                     <Typography.Text type="secondary">

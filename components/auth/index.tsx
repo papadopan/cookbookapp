@@ -17,6 +17,7 @@ export const ME = gql`
         title
         description
         recipes {
+          id
           title
           description
           portions

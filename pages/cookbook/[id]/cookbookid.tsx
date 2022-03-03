@@ -10,9 +10,19 @@ export const mybook = gql`
         userId
         cookBookId
         description
-        portions
         duration
+        portions
+        id
       }
+    }
+  }
+`
+
+export const deleteCookBook = gql`
+  mutation DeleteBook($deleteBookId: Float!) {
+    deleteBook(id: $deleteBookId) {
+      title
+      id
     }
   }
 `
