@@ -10,6 +10,8 @@ export const mybook = gql`
         userId
         cookBookId
         description
+        portions
+        duration
       }
     }
   }

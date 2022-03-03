@@ -13,6 +13,8 @@ export const LOGIN = gql`
         recipes {
           title
           description
+          portions
+          duration
         }
       }
     }

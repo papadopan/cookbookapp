@@ -19,6 +19,8 @@ export const ME = gql`
         recipes {
           title
           description
+          portions
+          duration
         }
       }
     }

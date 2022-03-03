@@ -72,12 +72,14 @@ const CookBookID = () => {
               <Card
                 actions={[
                   <Space key="time">
-                    <Typography.Text type="secondary">30 min</Typography.Text>
+                    <Typography.Text type="secondary">
+                      {item.duration} min
+                    </Typography.Text>
                     <ClockCircleOutlined />
                   </Space>,
                   <Space>
                     <Typography.Text type="secondary">
-                      9 portions
+                      {item.portions} portions
                     </Typography.Text>
                     <TeamOutlined />
                   </Space>,
