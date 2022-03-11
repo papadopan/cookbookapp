@@ -1,4 +1,9 @@
-import { BookOutlined, PlusOutlined, ShareAltOutlined } from '@ant-design/icons'
+import {
+  ArrowRightOutlined,
+  BookOutlined,
+  PlusOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons'
 import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -62,22 +67,23 @@ const Home: NextPage = () => {
               background: 'rgb(226,215,215)',
               color: '#fff',
               padding: '15px',
-              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <Blob />
-            <Typography.Title
-              level={3}
-              style={{
-                position: 'absolute',
-                top: 20,
-                left: 50,
-                transformOrigin: '50% 50%',
-              }}
+            <Space
+              style={{ position: 'absolute', color: '#fff' }}
+              direction="vertical"
+              onClick={() => router.push('/recipe')}
             >
-              My Recipes
-            </Typography.Title>
-            <Tag onClick={() => router.push('recipe')}>RECIPES</Tag>
+              <Typography.Title level={3} style={{ color: '#fff' }}>
+                My Recipes
+              </Typography.Title>
+              <ArrowRightOutlined />
+            </Space>
+            {/* <Tag onClick={() => router.push('recipe')}>RECIPES</Tag> */}
           </Col>
         </Row>
       </Col>

@@ -15,11 +15,7 @@ a {
 }
 
 .blob {
-  position: absolute;
-  top: 0;
-  left: 0;
   fill: #023f92;
   width: 20vmax;
   z-index: 0;
-  transform-origin: 50% 50%;
 }
