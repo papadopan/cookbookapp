@@ -19,3 +19,11 @@ export const getRecipe = gql`
     }
   }
 `
+export const deleteRecipe = gql`
+  mutation Mutation($deleteRecipeId: Float!) {
+    deleteRecipe(id: $deleteRecipeId) {
+      title
+      id
+    }
+  }
+`
