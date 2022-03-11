@@ -3,6 +3,7 @@ import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import Blob from '../components/Blob'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -61,8 +62,21 @@ const Home: NextPage = () => {
               background: 'rgb(226,215,215)',
               color: '#fff',
               padding: '15px',
+              position: 'relative',
             }}
           >
+            <Blob />
+            <Typography.Title
+              level={3}
+              style={{
+                position: 'absolute',
+                top: 20,
+                left: 50,
+                transformOrigin: '50% 50%',
+              }}
+            >
+              My Recipes
+            </Typography.Title>
             <Tag onClick={() => router.push('recipe')}>RECIPES</Tag>
           </Col>
         </Row>
