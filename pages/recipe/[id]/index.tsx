@@ -12,6 +12,8 @@ import {
   Row,
   Space,
   Steps,
+  Table,
+  Tag,
   Typography,
 } from 'antd'
 import Image from 'next/image'
@@ -19,6 +21,29 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { mybook } from '../../cookbook/[id]/cookbookid'
 
 const Recipe = (props) => {
+  const columns = [
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Measurement',
+      dataIndex: 'measurement',
+      key: 'measurement',
+    },
+    {
+      title: 'Description',
+      key: 'description',
+      dataIndex: 'description',
+    },
+  ]
+
   const router = useRouter()
   const { id } = router.query
 
@@ -54,6 +79,7 @@ const Recipe = (props) => {
   if (error) return <div>{error.message}</div>
 
   const { recipe } = data
+
   return (
     <React.Fragment>
       <Drawer
@@ -98,8 +124,13 @@ const Recipe = (props) => {
             />
           </Space>
           <Row style={{ marginTop: '10px' }}>
-            <Col xs={22} lg={12}>
+            <Col xs={22} lg={12} style={{ padding: '10px' }}>
               <Typography.Title level={3}>Ingredients</Typography.Title>
+              <Table
+                columns={columns}
+                dataSource={recipe.ingredients}
+                pagination={false}
+              />
             </Col>
             <Col xs={22} lg={12}>
               <Typography.Title level={3}>Steps</Typography.Title>

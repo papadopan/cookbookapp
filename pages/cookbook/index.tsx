@@ -7,13 +7,17 @@ import { createCookbook } from './cookbook'
 import { ME } from '../../components/auth'
 import { PlusOutlined, SwapRightOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { MYBOOKS } from '../recipe/recipe'
 
 const CookBook = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [form] = Form.useForm()
   const user = useAppSelector((state) => state.user.user)
   const [createBook] = useMutation(createCookbook, {
-    refetchQueries: [ME],
+    refetchQueries: [
+      ME,
+      { query: MYBOOKS, variables: { allBooksId: Number(user?.id) } },
+    ],
     onError(error) {
       return error
     },
