@@ -16,6 +16,12 @@ export const LOGIN = gql`
           description
           portions
           duration
+          ingredients {
+            title
+            description
+            measurement
+            quantity
+          }
         }
       }
     }
