@@ -78,7 +78,7 @@ const Recipe = () => {
             </Select>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Create Recipe
             </Button>
           </Form.Item>

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { useQuery, useMutation } from '@apollo/client'
-import { mybook } from './cookbookid'
-import { deleteCookBook } from './cookbookid'
+import { mybook, deleteCookBook } from './cookbookid'
+
 import {
   Col,
   PageHeader,
@@ -27,6 +27,15 @@ import {
   TeamOutlined,
 } from '@ant-design/icons'
 import { ME } from '../../../components/auth'
+type RecipeItem = {
+  cookBookId: number
+  description: string
+  duration: number
+  id: number
+  portions: number
+  title: string
+  userId: number
+}
 
 const CookBookID = () => {
   const router = useRouter()
@@ -46,7 +55,7 @@ const CookBookID = () => {
   useEffect(() => {
     if (deleteData) {
       const { deleteBook } = deleteData
-      router.push('/cookbook')
+      goToCookBooks()
       notification.success({
         message: 'CookBook Deleted',
         description: `${deleteBook.title} deleted successfully`,
@@ -61,7 +70,7 @@ const CookBookID = () => {
     <Menu>
       <Menu.Item icon={<EditOutlined />}>Edit</Menu.Item>
       <Menu.Item
-        danger
+        danger={true}
         icon={<DeleteOutlined />}
         onClick={() => deleteBook({ variables: { deleteBookId: Number(id) } })}
       >
@@ -70,14 +79,17 @@ const CookBookID = () => {
     </Menu>
   )
   const { myBook } = data
+  const goToCookBooks = () => router.push('/cookbook')
+  const goToRecipe = (id: number) => () => router.push(`/recipe/${id}`)
+
   return (
     <Layout>
       <PageHeader
         title={myBook.title}
         subTitle={myBook.description}
-        onBack={() => router.back()}
+        onBack={goToCookBooks}
         extra={[
-          <Dropdown overlay={menu} trigger={['click']}>
+          <Dropdown key="Settings" overlay={menu} trigger={['click']}>
             <Button icon={<SettingOutlined />} type="primary">
               Settings
             </Button>
@@ -86,17 +98,17 @@ const CookBookID = () => {
       />
       <Layout.Content style={{ padding: '15px' }}>
         <Row gutter={[16, 16]}>
-          {myBook?.recipes.map((item) => (
+          {myBook?.recipes.map((item: RecipeItem) => (
             <Col
               xs={{ span: 22, offset: 1 }}
               md={{ span: 12, offset: 0 }}
               lg={8}
               xl={6}
               xxl={4}
+              key={item.id}
             >
-              {console.log('----', item)}
               <Card
-                onClick={() => router.push(`/recipe/${item.id}`)}
+                onClick={goToRecipe(item.id)}
                 actions={[
                   <Space key="time">
                     <Typography.Text type="secondary">
@@ -104,13 +116,13 @@ const CookBookID = () => {
                     </Typography.Text>
                     <ClockCircleOutlined />
                   </Space>,
-                  <Space>
+                  <Space key="portions">
                     <Typography.Text type="secondary">
                       {item.portions} portions
                     </Typography.Text>
                     <TeamOutlined />
                   </Space>,
-                  <Space>
+                  <Space key="stars">
                     <Typography.Text type="secondary">3.5</Typography.Text>
                     <StarOutlined />
                   </Space>,

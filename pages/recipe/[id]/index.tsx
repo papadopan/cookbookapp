@@ -13,14 +13,13 @@ import {
   Space,
   Steps,
   Table,
-  Tag,
   Typography,
 } from 'antd'
 import Image from 'next/image'
 import { DeleteOutlined } from '@ant-design/icons'
 import { mybook } from '../../cookbook/[id]/cookbookid'
 
-const Recipe = (props) => {
+const Recipe = () => {
   const columns = [
     {
       title: 'Title',
@@ -60,14 +59,14 @@ const Recipe = (props) => {
     refetchQueries: [
       {
         query: mybook,
-        variables: { myBookId: Number(data?.recipe.cookBookId) },
+        variables: { myBookId: Number(data?.recipe?.cookBookId) },
       },
     ],
   })
 
   useEffect(() => {
     if (deleteData) {
-      router.back()
+      goToCookBookPage()
       notification.success({
         message: recipe.title,
         description: 'successfully deleted',
@@ -80,31 +79,36 @@ const Recipe = (props) => {
 
   const { recipe } = data
 
+  const closeModal = () => setShowModal(false)
+  const openModal = () => setShowModal(true)
+  const deleteRecipeButton = () =>
+    deleteRecipeById({
+      variables: { deleteRecipeId: Number(id) },
+    })
+  const goToCookBookPage = () =>
+    router.push(`/cookbook/${data.recipe.cookBookId}`)
+
   return (
     <React.Fragment>
       <Drawer
         title={recipe.title}
         placement="right"
-        onClose={() => setShowModal(false)}
+        onClose={closeModal}
         visible={showModal}
       >
         <Button
-          danger
+          danger={true}
           icon={<DeleteOutlined />}
-          onClick={() =>
-            deleteRecipeById({
-              variables: { deleteRecipeId: Number(id) },
-            })
-          }
+          onClick={deleteRecipeButton}
         >
           Delete
         </Button>
       </Drawer>
       <PageHeader
-        onBack={() => router.back()}
+        onBack={goToCookBookPage}
         title="a"
         extra={
-          <Button type="primary" onClick={() => setShowModal(true)}>
+          <Button type="primary" onClick={openModal}>
             Settings
           </Button>
         }
@@ -134,7 +138,7 @@ const Recipe = (props) => {
             </Col>
             <Col xs={22} lg={12}>
               <Typography.Title level={3}>Steps</Typography.Title>
-              <Steps progressDot current={0} direction="vertical">
+              <Steps progressDot={true} current={0} direction="vertical">
                 <Steps.Step
                   title="Finished"
                   description="This is a description."
