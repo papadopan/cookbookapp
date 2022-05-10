@@ -5,6 +5,7 @@ import { getRecipe, deleteRecipe } from './recipe'
 import { useQuery, useMutation } from '@apollo/client'
 import {
   Button,
+  Card,
   Col,
   Drawer,
   notification,
@@ -114,7 +115,7 @@ const Recipe = () => {
         }
       />
       <Row justify="center">
-        <Col xs={22} style={{ textAlign: 'center', background: 'lightblue' }}>
+        <Col xs={22} style={{ background: 'lightblue' }}>
           <Space direction="vertical" size="large">
             <Space direction="vertical" size="small">
               <Typography.Title level={1}>{recipe.title}</Typography.Title>
@@ -127,31 +128,36 @@ const Recipe = () => {
               src="https://images.unsplash.com/photo-1612874742237-6526221588e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3BhZ2hldHRpJTIwY2FyYm9uYXJhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
             />
           </Space>
-          <Row style={{ marginTop: '10px' }}>
-            <Col xs={22} lg={12} style={{ padding: '10px' }}>
-              <Typography.Title level={3}>Ingredients</Typography.Title>
-              <Table
-                columns={columns}
-                dataSource={recipe.ingredients}
-                pagination={false}
-              />
+          <Row style={{ marginTop: '10px', padding: '10px' }} gutter={[16, 16]}>
+            <Col xs={22} lg={12}>
+              <Card
+                title="Ingredients"
+                extra={<Button type="primary">Add ingredients</Button>}
+              >
+                <Table
+                  columns={columns}
+                  dataSource={recipe.ingredients}
+                  pagination={false}
+                />
+              </Card>
             </Col>
             <Col xs={22} lg={12}>
-              <Typography.Title level={3}>Steps</Typography.Title>
-              <Steps progressDot={true} current={0} direction="vertical">
-                <Steps.Step
-                  title="Finished"
-                  description="This is a description."
-                />
-                <Steps.Step
-                  title="In Progress"
-                  description="This is a description."
-                />
-                <Steps.Step
-                  title="Waiting"
-                  description="This is a description."
-                />
-              </Steps>
+              <Card title="Steps">
+                <Steps progressDot={true} current={0} direction="vertical">
+                  <Steps.Step
+                    title="Finished"
+                    description="This is a description."
+                  />
+                  <Steps.Step
+                    title="In Progress"
+                    description="This is a description."
+                  />
+                  <Steps.Step
+                    title="Waiting"
+                    description="This is a description."
+                  />
+                </Steps>
+              </Card>
             </Col>
           </Row>
         </Col>
