@@ -5,6 +5,7 @@ export const RECIPE = gql`
     addRecipe(options: $options) {
       title
       userId
+      id
       cookBookId
       description
       ingredients {

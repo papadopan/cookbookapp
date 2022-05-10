@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Col, Form, Input, Row, Select, Space, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { useAppSelector } from '../../redux/hooks'
 import { useMutation, useQuery } from '@apollo/client'
 import { RECIPE, MYBOOKS } from './recipe'
 import { ME } from '../../components/auth'
+import { useRouter } from 'next/router'
 
 const Recipe = () => {
   const user = useAppSelector((state) => state.user.user)
-  const [recipe] = useMutation(RECIPE, {
+  const [recipe, { data: recipeData, loading, error }] = useMutation(RECIPE, {
     refetchQueries: [ME],
   })
 
   const { data } = useQuery(MYBOOKS, {
     variables: { allBooksId: Number(user?.id) },
   })
+  const router = useRouter()
+
+  useEffect(() => {
+    if (recipeData && !error) {
+      const {
+        addRecipe: { id },
+      } = recipeData
+      router.push(`/recipe/${id}`)
+    }
+  }, [recipeData, error])
 
   return (
     <Row justify="center" style={{ paddingTop: '15px' }}>
