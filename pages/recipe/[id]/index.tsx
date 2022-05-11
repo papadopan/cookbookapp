@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { getRecipe, deleteRecipe } from './recipe'
 import { useQuery, useMutation } from '@apollo/client'
@@ -125,104 +124,81 @@ const Recipe = () => {
         onCancel={closeModal}
       >
         <Form name="dynamic_form_item">
-          <Form.List name="ingredientList">
-            {(fields, { add, remove }, { errors }) => (
+          <Form.List name="ingredients">
+            {(fields, { add, remove }) => (
               <>
-                {fields.map((field, index) => (
-                  <Form.Item
-                    required={false}
-                    key={field.key}
+                <Typography.Title level={5}>Ingredient List</Typography.Title>
+                {fields.map(({ key, name, ...restField }, index) => (
+                  <Space
+                    key={key}
+                    direction="vertical"
                     style={{
-                      background: index % 2 == 0 ? 'lightgrey' : 'white',
                       padding: '10px',
+                      width: '100%',
+                      marginBottom: '10px',
+                      background: index % 2 !== 0 ? '#f4f4f4' : undefined,
                     }}
                   >
                     <Form.Item
-                      {...field}
-                      name={[field.name, 'title']}
-                      validateTrigger={['onChange', 'onBlur']}
+                      {...restField}
+                      name={[name, 'title']}
                       rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: "Ingredient's title is mandatrory",
-                        },
+                        { required: true, message: 'Missing ingredient title' },
                       ]}
                     >
                       <Input placeholder="Title" />
                     </Form.Item>
                     <Space style={{ width: '100%' }}>
                       <Form.Item
-                        {...field}
-                        name={[field.name, 'quantity']}
-                        validateTrigger={['onChange', 'onBlur']}
+                        {...restField}
+                        name={[name, 'quantity']}
                         rules={[
                           {
                             required: true,
-                            whitespace: true,
-                            message: "Ingredient's quantity is mandatory",
+                            message: 'Missing ingredient quantity',
                           },
                         ]}
                       >
-                        <Input placeholder="Quantity" />
+                        <Input type="number" placeholder="Quantity" />
                       </Form.Item>
                       <Form.Item
-                        {...field}
-                        name={[field.name, 'measurement']}
-                        validateTrigger={['onChange', 'onBlur']}
+                        {...restField}
+                        name={[name, 'measurement']}
                         rules={[
                           {
                             required: true,
-                            whitespace: true,
-                            message: "Ingredient's measurement is mandatory",
+                            message: 'Missing ingredient measurement',
                           },
                         ]}
                       >
                         <Input placeholder="Measurement" />
                       </Form.Item>
                     </Space>
-                    <Form.Item
-                      {...field}
-                      name={[field.name, 'description']}
-                      validateTrigger={['onChange', 'onBlur']}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: "Ingredient's description is mandatory",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Description" />
+                    <Form.Item {...restField} name={[name, 'description']}>
+                      <Input.TextArea placeholder="Description" rows={5} />
                     </Form.Item>
                     <Button
                       danger={true}
-                      icon={
-                        <MinusCircleOutlined onClick={() => remove(field)} />
-                      }
+                      onClick={() => remove(name)}
+                      icon={<MinusCircleOutlined />}
                     >
                       Remove Ingredient
                     </Button>
-                  </Form.Item>
+                  </Space>
                 ))}
                 <Form.Item>
                   <Button
                     type="dashed"
                     onClick={() => add()}
+                    block={true}
                     icon={<PlusOutlined />}
                   >
-                    Add field
+                    Add Ingredient
                   </Button>
-                  <Form.ErrorList errors={errors} />
                 </Form.Item>
               </>
             )}
           </Form.List>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
         </Form>
       </Modal>
       <PageHeader
